@@ -10,32 +10,27 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text bestScoreText;
     [SerializeField] TMP_InputField inputField;
 
-    private const string BESTSCORE_KEY = "BESTSCORE";
-    private const string BESTPLAYER_KEY = "BESTPLAYER";
-    private const string NONAME = "NoName";
+    const string BESTSCORE_KEY = "BESTSCORE";
+    const string BESTPLAYER_KEY = "BESTPLAYER";
+    const string NONAME = "NoName";
 
-    private string userName;
+    string userName;
     public string UserName
     {
-        get { return userName; }
-        set
-        {
-            userName = (value.Length == 0) ? NONAME : value;
-        }
+        //Expression Bodied Member;
+        get => userName;
+        set => userName = (value.Length == 0) ? NONAME : value;
     }
 
     public string BestPlayer
     {
-        get { return PlayerPrefs.GetString(BESTPLAYER_KEY, NONAME); }
-        set { PlayerPrefs.SetString(BESTPLAYER_KEY, value); }
+        get => PlayerPrefs.GetString(BESTPLAYER_KEY, NONAME);
+        set => PlayerPrefs.SetString(BESTPLAYER_KEY, value);
     }
 
     public int BestScore
     {
-        get
-        {
-            return  PlayerPrefs.GetInt("BESTSCORE_KEY", 0);
-        }
+        get =>  PlayerPrefs.GetInt("BESTSCORE_KEY", 0);
         set
         {
             if (BestScore <= value)
@@ -45,7 +40,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
 
     void Awake()
     {
@@ -57,34 +51,18 @@ public class GameManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(this);
     }
+    
+    void Start() => bestScoreText.text = GetBestText();
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        bestScoreText.text = GetBestText();
-    }
+    public string GetBestText() => $"BEST : {BestScore} by {BestPlayer}";
 
-    public string GetBestText()
-    {
-        return $"BEST : {BestScore} by {BestPlayer}";
-    }
-
-    public void UpdateName()
-    {
-        name = inputField.text;
-        Debug.Log(name);
-    }
+    public void UpdateName() => userName = inputField.text;
+    public void ExitGame() => Application.Quit();
 
     public void StartGame()
     {
         UserName = inputField.text;
         SceneManager.LoadScene("main");
-
-    }
-
-    public void ExitGame()
-    {
-        Application.Quit();
     }
     
     [MenuItem("BlockGame/ResetBestScore")]
