@@ -36,6 +36,7 @@ public class MainManager : MonoBehaviour
             }
         }
         UpdateBestScore();
+        ScoreText.text = $"Score : {m_Points} by {GameManager.Instance.UserName}";
     }
 
     private void Update()

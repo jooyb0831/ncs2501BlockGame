@@ -69,6 +69,6 @@ public class GameManager : MonoBehaviour
     public static void ResetBestScore()
     {
         PlayerPrefs.SetInt("BESTSCORE_KEY", 0);
-        PlayerPrefs.SetString("BESTPLAYER_KEY", NONAME);
+        PlayerPrefs.SetString("BESTPLAYER_KEY", "NoName");
     }
 }
